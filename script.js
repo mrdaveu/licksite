@@ -1,4 +1,5 @@
-const url = 'https://corsproxy.io/?' + encodeURIComponent('https://raw.githubusercontent.com/mrdaveu/licksite/main/database.json');
+const timestamp = new Date().getTime();
+const url = 'https://corsproxy.io/?' + encodeURIComponent('https://raw.githubusercontent.com/mrdaveu/licksite/main/database.json?v=') + timestamp;
 let activeAudio = null;
 
 async function fadeInAudio(audio, duration) {
