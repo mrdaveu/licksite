@@ -8,31 +8,34 @@ async function fadeInAudio(audio, duration) {
    }
 }
 
-import data from './database.json' assert {type:'json'};
-console.log(data);
-
+let data; 
 document.addEventListener("DOMContentLoaded", function() {
-   const navigation = document.getElementById("navigation");
-      Object.keys(data).forEach(id => {
-         const listItem = document.createElement("li");
-         listItem.className = "data";
-         ['songName', 'artist', 'difficulty', 'instrument', 'tempo'].forEach(key => {
-         const div = document.createElement("div");
-         div.innerHTML = key === 'difficulty' ? ['V.Easy', 'Easy', 'Medium', 'Hard', 'V.Hard'][data[id][key] - 1] : data[id][key];
-         listItem.appendChild(div);
-         });
-         listItem.addEventListener("mouseover", function() {
-         updateContent(data[id], id);
-         });
-         listItem.addEventListener("click", function() {
-            updateContent(data[id], id);
-         });
-         navigation.appendChild(listItem);
+   fetch('database.json')
+      .then(response => response.json())
+      .then(jsonData => {
+         data = jsonData;
+         const navigation = document.getElementById("navigation");
+            Object.keys(data).forEach(id => {
+               const listItem = document.createElement("li");
+               listItem.className = "data";
+               ['songName', 'artist', 'difficulty', 'instrument', 'tempo'].forEach(key => {
+               const div = document.createElement("div");
+               div.innerHTML = key === 'difficulty' ? ['V.Easy', 'Easy', 'Medium', 'Hard', 'V.Hard'][data[id][key] - 1] : data[id][key];
+               listItem.appendChild(div);
+               });
+               listItem.addEventListener("mouseover", function() {
+               updateContent(data[id], id);
+               });
+               listItem.addEventListener("click", function() {
+                  updateContent(data[id], id);
+               });
+               navigation.appendChild(listItem);
+            });
       });
 
    function updateContent(item, id) {
-      const xml_src = "https://raw.githubusercontent.com/mrdaveu/licksite/main/" + id + ".musicxml";
-      const audio_src = "https://raw.githubusercontent.com/mrdaveu/licksite/main/" + id + ".m4a";
+      const xml_src = "./" + id + ".musicxml";
+      const audio_src = "./" + id + ".m4a";
       document.getElementById("osmdContainer").innerHTML = "";
       document.getElementById("title").innerHTML = "";
       const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdContainer");
