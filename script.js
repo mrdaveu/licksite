@@ -76,7 +76,17 @@ document.addEventListener("DOMContentLoaded", function() {
          description.innerHTML = item["description"] ? `${item["description"]}` : "";
       }
       const audio = new Audio(audio_src);
-      fadeInAudio(audio, 2000);
+      osmd.afterRenderFinished().then(() => {
+        audio.play();
+      });
+
+      const playButton = document.getElementById("playLick");
+
+      playButton.addEventListener("click", () => {
+        audio.play();
+      });
+      // const audio = new Audio(audio_src);
+      // fadeInAudio(audio, 2000);
 });
 
 document.addEventListener('DOMContentLoaded', (event) => {
