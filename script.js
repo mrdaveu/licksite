@@ -1,5 +1,6 @@
 const timestamp = new Date().getTime();
-const url = 'https://corsproxy.io/?' + encodeURIComponent('https://raw.githubusercontent.com/mrdaveu/licksite/main/database.json?v=') + timestamp;
+const url = 'https://corsproxy.io/?' + encodeURIComponent('raw.githubusercontent.com/mrdaveu/licksite/main/database.json?v=') + timestamp;
+const url2 = 'https://licks.site/database.json/'
 let activeAudio = null;
 
 async function fadeInAudio(audio, duration) {
@@ -15,7 +16,7 @@ async function fadeInAudio(audio, duration) {
 document.addEventListener("DOMContentLoaded", function() {
    const navigation = document.getElementById("navigation");
    const contentDiv = document.getElementById("content")
-   fetch(url)
+   fetch(url2)
       .then(response => response.json())
       .then(data => {
          console.log(data);
