@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
    function updateContent(item, id) {
       const xml_src = "https://raw.githubusercontent.com/mrdaveu/licksite/main/" + id + ".musicxml";
       const audio_src = "https://raw.githubusercontent.com/mrdaveu/licksite/main/" + id + ".m4a";
+      const audio = new Audio(audio_src);
       document.getElementById("osmdContainer").innerHTML = "";
       document.getElementById("title").innerHTML = "";
       const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdContainer");
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
                osmd.Zoom = 0.75;
             }
             osmd.render();
-         });
+      });
          const titleElement = document.createElement("h2");
          const artistElement = document.createElement("div");
          const subheadElement = document.createElement("h3");
@@ -74,17 +75,14 @@ document.addEventListener("DOMContentLoaded", function() {
          // Update description
          const description = document.getElementById("description");
          description.innerHTML = item["description"] ? `${item["description"]}` : "";
-      }
-      const audio = new Audio(audio_src);
-      osmd.afterRenderFinished().then(() => {
-        audio.play();
-      });
-
+         audio.play();
+   
       const playButton = document.getElementById("playLick");
 
       playButton.addEventListener("click", () => {
         audio.play();
       });
+   }
       // const audio = new Audio(audio_src);
       // fadeInAudio(audio, 2000);
 });
