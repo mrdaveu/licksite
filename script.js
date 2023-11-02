@@ -8,15 +8,10 @@ async function fadeInAudio(audio, duration) {
    }
 }
 
-async function fetchData() {
-  const url1 = 'https://github.com/mrdaveu/licksite/raw/main/database.json';
-  const response = await fetch(url1);
-  const data = await response.text();
-  console.log(data);
-}
+import data from './database.json' assert {type:'json'};
+console.log(data);
 
 document.addEventListener("DOMContentLoaded", function() {
-   fetchData();
    const navigation = document.getElementById("navigation");
       Object.keys(data).forEach(id => {
          const listItem = document.createElement("li");
