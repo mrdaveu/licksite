@@ -1,4 +1,5 @@
 const url = 'https://corsproxy.io/?' + encodeURIComponent('https://raw.githubusercontent.com/mrdaveu/licksite/main/database.json');
+let activeAudio = null;
 
 async function fadeInAudio(audio, duration) {
    audio.volume = 0;
@@ -12,6 +13,7 @@ async function fadeInAudio(audio, duration) {
 
 document.addEventListener("DOMContentLoaded", function() {
    const navigation = document.getElementById("navigation");
+   const contentDiv = document.getElementById("content")
    fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -25,14 +27,20 @@ document.addEventListener("DOMContentLoaded", function() {
             listItem.appendChild(div);
             });
             listItem.addEventListener("mouseover", function() {
-            updateContent(data[id], id);
+               updateContent(data[id], id);
             });
             listItem.addEventListener("click", function() {
                updateContent(data[id], id);
+               if (window.innerWidth < 1050) {
+                  navigation.style.display = "none";
+                  contentDiv.style.display = "block";
+                  }
+               else {}
             });
-            navigation.appendChild(listItem);
+         navigation.appendChild(listItem);
          });
       });
+});
 
    function updateContent(item, id) {
       const xml_src = "https://raw.githubusercontent.com/mrdaveu/licksite/main/" + id + ".musicxml";
@@ -77,21 +85,20 @@ document.addEventListener("DOMContentLoaded", function() {
          description.innerHTML = item["description"] ? `${item["description"]}` : "";
          
          function playAudio() {
+
             if (activeAudio) {
               activeAudio.pause();
             }
             audio.play();
             activeAudio = audio;
          }
-         audio.play();
+         playAudio();
          const playButton = document.getElementById("playLick");
          playButton.addEventListener("click", () => {
-         audio.play();
+         playAudio();
          });
    }
-      // const audio = new Audio(audio_src);
-      // fadeInAudio(audio, 2000);
-});
+
 
 document.addEventListener('DOMContentLoaded', (event) => {
    // Initialize button and div elements
@@ -123,7 +130,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
      navigationDiv.style.display = "block";
    });
  
-   // Assuming you have a list of li elements with a class 'nav-item'
+   // class 'nav-item' switcher 
    const listItems = document.querySelectorAll(".data");
    listItems.forEach((item) => {
      item.addEventListener("click", function() {

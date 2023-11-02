@@ -124,6 +124,10 @@ li div:nth-child(3) {
 
 li div:nth-child(4) {
    width: 2.5em;
+   text-overflow: hidden;
+   overflow: hidden;
+   white-space: nowrap;
+   position: relative;
 }
 li div:nth-child(5) {
    width: 1.5em;
