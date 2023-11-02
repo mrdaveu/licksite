@@ -75,13 +75,19 @@ document.addEventListener("DOMContentLoaded", function() {
          // Update description
          const description = document.getElementById("description");
          description.innerHTML = item["description"] ? `${item["description"]}` : "";
+         
+         function playAudio() {
+            if (activeAudio) {
+              activeAudio.pause();
+            }
+            audio.play();
+            activeAudio = audio;
+         }
          audio.play();
-   
-      const playButton = document.getElementById("playLick");
-
-      playButton.addEventListener("click", () => {
-        audio.play();
-      });
+         const playButton = document.getElementById("playLick");
+         playButton.addEventListener("click", () => {
+         audio.play();
+         });
    }
       // const audio = new Audio(audio_src);
       // fadeInAudio(audio, 2000);
