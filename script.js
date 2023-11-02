@@ -34,10 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
    function updateContent(item, id) {
-      const xml_src = "https://github.com/mrdaveu/licksite/raw/main/" + id + ".musicxml";
-      const audio_src = "https://github.com/mrdaveu/licksite/raw/main/" + id + ".m4a";
+      const xml_src = "./" + id + ".musicxml";
+      const audio_src = "./" + id + ".m4a";
       document.getElementById("osmdContainer").innerHTML = "";
       document.getElementById("title").innerHTML = "";
+      const audio = new Audio(audio_src);
+      fadeInAudio(audio, 2000);
       const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdContainer");
       osmd.setOptions({
          backend: "svg",
@@ -74,8 +76,6 @@ document.addEventListener("DOMContentLoaded", function() {
          const description = document.getElementById("description");
          description.innerHTML = item["description"] ? `${item["description"]}` : "";
       }
-      const audio = new Audio(audio_src);
-      fadeInAudio(audio, 2000);
 });
 
 document.addEventListener('DOMContentLoaded', (event) => {
