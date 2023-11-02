@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function() {
       });
 
    function updateContent(item, id) {
-      const xml_src = "./" + id + ".musicxml";
-      const audio_src = "./" + id + ".m4a";
+      const xml_src = "https://github.com/mrdaveu/licksite/raw/main/" + id + ".musicxml";
+      const audio_src = "https://github.com/mrdaveu/licksite/raw/main/" + id + ".m4a";
       document.getElementById("osmdContainer").innerHTML = "";
       document.getElementById("title").innerHTML = "";
       const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdContainer");
