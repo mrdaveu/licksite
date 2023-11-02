@@ -1,3 +1,5 @@
+const url = 'https://corsproxy.io/?' + encodeURIComponent('https://raw.githubusercontent.com/mrdaveu/licksite/main/database.json');
+
 async function fadeInAudio(audio, duration) {
    audio.volume = 0;
    audio.play();
@@ -9,23 +11,27 @@ async function fadeInAudio(audio, duration) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-   data = {"001":{"id":1,"timestamp":null,"artist":"John Coltrane","chordProgression":"ii V I ","songName":"The Lick","description":"It's not just a lick. It's the lick. ","tempo":150,"difficulty":1,"instrument":"Saxophone","songUrl":"https://www.youtube.com/watch?v=krDxhnaKD7Q"},"002":{"id":2,"timestamp":"2023-10-10T17:33:28.919Z","artist":"Chick Corea","chordProgression":"N.C.","songName":"Windows","albumName":"Now He Sings, Now He Sobs","tempo":180,"difficulty":3,"instrument":"Piano","songUrl":"https://www.youtube.com/watch?v=Hp5B64jXbu0"}};
    const navigation = document.getElementById("navigation");
-      Object.keys(data).forEach(id => {
-         const listItem = document.createElement("li");
-         listItem.className = "data";
-         ['songName', 'artist', 'difficulty', 'instrument', 'tempo'].forEach(key => {
-         const div = document.createElement("div");
-         div.innerHTML = key === 'difficulty' ? ['V.Easy', 'Easy', 'Medium', 'Hard', 'V.Hard'][data[id][key] - 1] : data[id][key];
-         listItem.appendChild(div);
-         });
-         listItem.addEventListener("mouseover", function() {
-         updateContent(data[id], id);
-         });
-         listItem.addEventListener("click", function() {
+   fetch(url)
+      .then(response => response.json())
+      .then(data => {
+         console.log(data);
+         Object.keys(data).forEach(id => {
+            const listItem = document.createElement("li");
+            listItem.className = "data";
+            ['songName', 'artist', 'difficulty', 'instrument', 'tempo'].forEach(key => {
+            const div = document.createElement("div");
+            div.innerHTML = key === 'difficulty' ? ['V.Easy', 'Easy', 'Medium', 'Hard', 'V.Hard'][data[id][key] - 1] : data[id][key];
+            listItem.appendChild(div);
+            });
+            listItem.addEventListener("mouseover", function() {
             updateContent(data[id], id);
+            });
+            listItem.addEventListener("click", function() {
+               updateContent(data[id], id);
+            });
+            navigation.appendChild(listItem);
          });
-         navigation.appendChild(listItem);
       });
 
    function updateContent(item, id) {
