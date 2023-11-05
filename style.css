@@ -44,6 +44,10 @@
    }
 }
 
+body {
+   -webkit-font-smoothing: antialiased;
+}
+
 .header {
    margin: 0 0;
 }
