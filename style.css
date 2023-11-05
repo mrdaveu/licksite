@@ -146,6 +146,10 @@ li.data:hover {
    cursor: pointer;
 }
 
+.active {
+   font-style: italic;
+}
+
 .navigation div {
    width: auto;
    padding-right:0.5rem;
