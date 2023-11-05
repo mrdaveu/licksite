@@ -52,6 +52,12 @@ body {
    margin: 0 0;
 }
 
+span {
+   font-size: 2rem;
+   margin-right: 0.75rem;
+}
+
+
 h1 {
    font-size: 2rem;
    margin: 0 0;

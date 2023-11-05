@@ -2,6 +2,7 @@ const timestamp = new Date().getTime();
 const url = 'https://corsproxy.io/?' + encodeURIComponent('raw.githubusercontent.com/mrdaveu/licksite/main/database.json?v=') + timestamp;
 const url2 = 'https://licks.site/database.json/'
 let activeAudio = null;
+let uniqueContributors = "";
 
 async function fadeInAudio(audio, duration) {
    audio.volume = 0;
@@ -19,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
    fetch(url2)
       .then(response => response.json())
       .then(data => {
-         console.log(data);
          Object.keys(data).forEach(id => {
             const listItem = document.createElement("li");
             listItem.className = "data";
@@ -41,6 +41,16 @@ document.addEventListener("DOMContentLoaded", function() {
                else {}
             });
          navigation.appendChild(listItem);
+         let contributors = [];
+         for (let key in data) {
+             if (data[key].contributor) {
+                 contributors.push(data[key].contributor);
+             }
+         }
+         uniqueContributors = Array.from(new Set(contributors));
+         const lastContributor = uniqueContributors.pop();
+         const formattedContributors = uniqueContributors.join(', ') + ', and ' + lastContributor;
+         return 'Thank you to our contributors ' + formattedContributors + '.';
          });
       });
 });
@@ -93,6 +103,7 @@ function updateContent(item, id) {
    });
    nav.children[0].classList.add('active');
    nav.children[1].classList.add('active');
+
    function playAudio() {
 
       if (activeAudio) {
@@ -152,3 +163,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
    });
  });
  
+function aboutButton() {
+   const aboutButton = document.getElementsByClassName("about");
+   const aboutPage = document.getElementsByClassName("aboutPage")
+   const header = document.getElementsByClassName("header");
+   const navigation = document.getElementsByClassName("navigation");
+   const content = document.getElementsByClassName("content");
+   const contributors = data
+
+   aboutButton.addEventListener("click"), function() {
+      if (header.style.display = "none") {
+         header.style.display = "block";
+         content.style.display = "block";
+         navigation.style.display = "block";
+      }
+      else {
+         header.style.display = "none";
+         content.style.display = "none";
+         navigation.style.display = "none";
+      }
+   }
+}
