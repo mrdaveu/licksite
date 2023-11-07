@@ -2,7 +2,6 @@ const timestamp = new Date().getTime();
 const url = 'https://corsproxy.io/?' + encodeURIComponent('raw.githubusercontent.com/mrdaveu/licksite/main/database.json?v=') + timestamp;
 const url2 = 'https://licks.site/database.json/'
 let activeAudio = null;
-let uniqueContributors = "";
 
 async function fadeInAudio(audio, duration) {
    audio.volume = 0;
@@ -16,7 +15,8 @@ async function fadeInAudio(audio, duration) {
 
 document.addEventListener("DOMContentLoaded", function() {
    const navigation = document.getElementById("navigation");
-   const contentDiv = document.getElementById("content")
+   const contentDiv = document.getElementById("content");
+   const aboutPage = document.getElementsByClassName("aboutPage")
    fetch(url2)
       .then(response => response.json())
       .then(data => {
@@ -47,10 +47,13 @@ document.addEventListener("DOMContentLoaded", function() {
                  contributors.push(data[key].contributor);
              }
          }
-         uniqueContributors = Array.from(new Set(contributors));
+         const uniqueContributors = Array.from(new Set(contributors));
          const lastContributor = uniqueContributors.pop();
          const formattedContributors = uniqueContributors.join(', ') + ', and ' + lastContributor;
-         return 'Thank you to our contributors ' + formattedContributors + '.';
+         const contributorsList = 'Thank you to our contributors ' + formattedContributors + '.';
+         const contributorsParagraph = document.createElement('p');
+         contributorsParagraph.textContent = contributorsList;
+         document.getElementById('aboutPage').appendChild(contributorsParagraph);
          });
       });
 });
@@ -169,7 +172,7 @@ function aboutButton() {
    const header = document.getElementsByClassName("header");
    const navigation = document.getElementsByClassName("navigation");
    const content = document.getElementsByClassName("content");
-   const contributors = data
+
 
    aboutButton.addEventListener("click"), function() {
       if (header.style.display = "none") {
