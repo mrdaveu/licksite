@@ -15,11 +15,11 @@ async function fadeInAudio(audio, duration) {
 
 document.addEventListener("DOMContentLoaded", function() {
    const navigation = document.getElementById("navigation");
-   const contentDiv = document.getElementById("content");
-   const aboutPage = document.getElementsByClassName("aboutPage")
+   const contentDiv = document.getElementById("content")
    fetch(url2)
       .then(response => response.json())
       .then(data => {
+         console.log(data);
          Object.keys(data).forEach(id => {
             const listItem = document.createElement("li");
             listItem.className = "data";
@@ -41,19 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
                else {}
             });
          navigation.appendChild(listItem);
-         let contributors = [];
-         for (let key in data) {
-             if (data[key].contributor) {
-                 contributors.push(data[key].contributor);
-             }
-         }
-         const uniqueContributors = Array.from(new Set(contributors));
-         const lastContributor = uniqueContributors.pop();
-         const formattedContributors = uniqueContributors.join(', ') + ', and ' + lastContributor;
-         const contributorsList = 'Thank you to our contributors ' + formattedContributors + '.';
-         const contributorsParagraph = document.createElement('p');
-         contributorsParagraph.textContent = contributorsList;
-         document.getElementById('aboutPage').appendChild(contributorsParagraph);
          });
       });
 });
@@ -106,7 +93,6 @@ function updateContent(item, id) {
    });
    nav.children[0].classList.add('active');
    nav.children[1].classList.add('active');
-
    function playAudio() {
 
       if (activeAudio) {
@@ -166,24 +152,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
    });
  });
  
-function aboutButton() {
-   const aboutButton = document.getElementsByClassName("about");
-   const aboutPage = document.getElementsByClassName("aboutPage")
-   const header = document.getElementsByClassName("header");
-   const navigation = document.getElementsByClassName("navigation");
-   const content = document.getElementsByClassName("content");
-
-
-   aboutButton.addEventListener("click"), function() {
-      if (header.style.display = "none") {
-         header.style.display = "block";
-         content.style.display = "block";
-         navigation.style.display = "block";
-      }
-      else {
-         header.style.display = "none";
-         content.style.display = "none";
-         navigation.style.display = "none";
-      }
-   }
-}
