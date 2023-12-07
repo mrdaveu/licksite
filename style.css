@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Xanh+Mono:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wdth,wght@97.3,446&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz@16..144&family=Noto+Serif:wdth,wght@97.3,446&display=swap');
 
 @font-face {
    font-family: "Apple Garamond Light";
@@ -59,10 +60,15 @@ span {
 
 
 h1 {
+   font-style: "Montagu Slab";
    font-size: 2rem;
    margin: 0 0;
    display: inline-block;
    -webkit-font-smoothing: antialiased;
+}
+
+.small {
+   font-size: 1.75rem;
 }
 
 h2 {
