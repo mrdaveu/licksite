@@ -60,7 +60,7 @@ span {
 
 
 h1 {
-   font-style: "Montagu Slab";
+   font-style: 'Montagu Slab';
    font-size: 2rem;
    margin: 0 0;
    display: inline-block;
@@ -79,7 +79,7 @@ h2 {
 
 h3 { 
    font-size: 0.85rem; 
-   font-family: "Apple Garamond Light";
+   font-family: 'Apple Garamond Light';
    margin: 0 0;
    -webkit-font-smoothing: antialiased;
 }
@@ -215,7 +215,7 @@ li.data:hover {
 
 .description {
    color: #000;
-   font-family: "Apple Garamond Light";
+   font-family: 'Apple Garamond Light';
    font-size: 1rem;
    font-weight: 449;
    line-height: normal;
