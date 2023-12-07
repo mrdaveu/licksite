@@ -118,6 +118,7 @@ h3 {
    display: none;
    z-index: 2;
    overflow-y: scroll;
+   margin: 8px 8px;
 }
 
 .addlick {
