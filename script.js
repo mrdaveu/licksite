@@ -159,24 +159,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
    const aboutButton = document.getElementById('aboutButton');
    const aboutPage = document.querySelector('.aboutPage');
    const otherElements = document.querySelectorAll('.header, .grid, .footer');
-
+   const closeButton = document.getElementById('closeButton')
    aboutButton.addEventListener('click', () => {
-       // Toggle visibility of the about page
-       if (aboutPage.style.display === 'none' || aboutPage.style.display === '') {
-           aboutPage.style.display = 'block';
-
-           // Hide other elements
-           otherElements.forEach(element => {
-               element.style.display = 'none';
-           });
-       } else {
-           aboutPage.style.display = 'none';
-
-           // Show other elements
-           otherElements.forEach(element => {
-               element.style.display = 'block';
-           });
-       }
+      aboutPage.style.display = '';
+      otherElements.forEach(element => {
+         element.style.display = 'none';
+      });
+   });
+   
+   closeButton.addEventListener('click', () => {
+      aboutPage.style.display = 'none';
+      otherElements.forEach(element => {
+      element.style.display = 'block';
+      });
    });
  });
- 
