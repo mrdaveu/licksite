@@ -155,5 +155,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
          else {}
      });
    });
+   const aboutButton = document.getElementById('aboutButton');
+   const aboutPage = document.querySelector('.aboutPage');
+   const otherElements = document.querySelectorAll('.header, .grid, .footer');
+
+   aboutButton.addEventListener('click', () => {
+       // Toggle visibility of the about page
+       if (aboutPage.style.display === 'none' || aboutPage.style.display === '') {
+           aboutPage.style.display = 'block';
+
+           // Hide other elements
+           otherElements.forEach(element => {
+               element.style.display = 'none';
+           });
+       } else {
+           aboutPage.style.display = 'none';
+
+           // Show other elements
+           otherElements.forEach(element => {
+               element.style.display = 'block';
+           });
+       }
+   });
  });
  
