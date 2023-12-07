@@ -56,9 +56,11 @@ body {
 span {
    font-family: 'Montagu Slab';
    font-size: 2rem;
+}
+.smalll {
+   font-size: 1.85rem;
    margin-right: 0.75rem;
 }
-
 
 h1 {
    font-family: 'Montagu Slab';
@@ -122,6 +124,11 @@ h3 {
    display: none;
    z-index: 2;
    overflow-y: scroll;
+   padding-top: 8px;
+}
+
+p {
+   margin-block-start: 0em;
 }
 
 .addlick {
