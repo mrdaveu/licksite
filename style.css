@@ -54,6 +54,7 @@ body {
 }
 
 span {
+   font-family: 'Montagu Slab';
    font-size: 2rem;
    margin-right: 0.75rem;
 }
@@ -68,6 +69,7 @@ h1 {
 }
 
 .small {
+   font-family: 'Montagu Slab';
    font-size: 1.85rem;
 }
 
@@ -100,7 +102,7 @@ h3 {
    bottom: 0px; 
    position: fixed;
    padding-left: 8px;
-   padding-bottom: 10px; 
+   padding-bottom: 11px; 
    font-size: 1rem;
 }
 
