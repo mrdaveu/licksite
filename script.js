@@ -157,20 +157,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
    });
    // event listener for pressing 'about'  
    const aboutButton = document.getElementById('aboutButton');
+   const closeButton = document.getElementById('closeButton');
    const aboutPage = document.querySelector('.aboutPage');
-   const otherElements = document.querySelectorAll('.header, .grid, .footer');
-   const closeButton = document.getElementById('closeButton')
+   
    aboutButton.addEventListener('click', () => {
-      aboutPage.style.display = '';
-      otherElements.forEach(element => {
-         element.style.display = 'none';
-      });
+       aboutPage.style.display = 'block'; // Show the aboutPage
    });
    
    closeButton.addEventListener('click', () => {
-      aboutPage.style.display = 'none';
-      otherElements.forEach(element => {
-      element.style.display = 'block';
-      });
+       aboutPage.style.display = 'none'; // Hide the aboutPage
    });
  });
