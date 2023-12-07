@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
          else {}
      });
    });
+   // event listener for pressing 'about'  
    const aboutButton = document.getElementById('aboutButton');
    const aboutPage = document.querySelector('.aboutPage');
    const otherElements = document.querySelectorAll('.header, .grid, .footer');

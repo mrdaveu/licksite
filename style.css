@@ -99,6 +99,19 @@ h3 {
    text-decoration: underline;
 }
 
+.aboutPage{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: black;
+   color: white;   
+   display: none;
+   z-index: 2;
+   overflow-y: scroll;
+}
+
 .addlick {
    color: white;
    font-style: italic;
