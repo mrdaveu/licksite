@@ -231,6 +231,15 @@ li.data:hover {
    text-decoration: underline;
 }
 
+#closeButton:hover {
+   cursor:pointer;
+}
+
+#aboutButton:hover {
+   cursor:pointer;
+   text-decoration: underline; 
+}
+
 #playLick {
    font-style: italic;
    letter-spacing: 0px;
