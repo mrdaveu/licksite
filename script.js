@@ -15,7 +15,8 @@ async function fadeInAudio(audio, duration) {
 
 document.addEventListener("DOMContentLoaded", function() {
    const navigation = document.getElementById("navigation");
-   const contentDiv = document.getElementById("content")
+   const contentDiv = document.getElementById("content");
+   const aboutPage = document.getElementById("content")
    fetch(url2)
       .then(response => response.json())
       .then(data => {
@@ -42,6 +43,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
          navigation.appendChild(listItem);
          });
+         const uniqueContributors = Array.from(new Set(Object.values(data).map(item => item.contributor))).join(', ');
+         const contributorsText = 'Thank you to our contributors ' + uniqueContributors + '.';
+         const aboutDiv = document.getElementById('about');
+         aboutDiv.textContent = contributorsText;
       });
 });
 
