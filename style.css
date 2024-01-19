@@ -185,6 +185,10 @@ li {
    flex-direction: row;
 }
 
+li:hover {
+   background-color: yellow;
+}
+
 li.data:hover {
    cursor: pointer;
 }
@@ -195,7 +199,10 @@ li.data:hover {
 
 .navigation div {
    width: auto;
-   padding-right:0.5rem;
+}
+
+.navigation div:nth-child(n+2) {
+   margin-left: 0.5rem;
 }
 
 .data > div:nth-child(1)::after,
