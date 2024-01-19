@@ -185,9 +185,9 @@ li {
    flex-direction: row;
 }
 
-li:hover {
+/* li:hover {
    background-color: yellow;
-}
+} */
 
 li.data:hover {
    cursor: pointer;
