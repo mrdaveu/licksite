@@ -1,30 +1,22 @@
 const timestamp = new Date().getTime();
 const url = 'https://corsproxy.io/?' + encodeURIComponent('raw.githubusercontent.com/mrdaveu/licksite/main/database.json?v=') + timestamp;
-const url2 = 'https://licks.site/database.json/';
+const url2 = 'https://licks.site/database.json/'
 let activeAudio = null;
 
-// Create a map to store and reuse audio instances
-const audioMap = new Map();
-
 async function fadeInAudio(audio, duration) {
-   try {
-      audio.volume = 0;
-      await audio.play();
-      
-      for (let i = 0; i <= duration; i += 10) {
-         await new Promise(resolve => setTimeout(resolve, 10));
-         audio.volume = Math.min(i / duration, 1);
-      }
-   } catch (error) {
-      console.error("Failed to fade in audio:", error);
-      // Optionally, display a user-friendly message or take other actions
+   audio.volume = 0;
+   audio.play();
+   
+   for (let i = 0; i <= duration; i += 10) {
+     await new Promise(resolve => setTimeout(resolve, 10));
+     audio.volume = i / duration;
    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
    const navigation = document.getElementById("navigation");
    const contentDiv = document.getElementById("content");
-   
+   const aboutPage = document.getElementById("content")
    fetch(url2)
       .then(response => response.json())
       .then(data => {
@@ -33,28 +25,21 @@ document.addEventListener("DOMContentLoaded", function() {
             const listItem = document.createElement("li");
             listItem.className = "data";
             listItem.id = "data" + id;
-            
             ['songName', 'artist', 'difficulty', 'instrument', 'tempo'].forEach(key => {
-               const div = document.createElement("div");
-               div.innerHTML = key === 'difficulty' 
-                  ? ['V.Easy', 'Easy', 'Medium', 'Hard', 'V.Hard'][data[id][key] - 1] 
-                  : data[id][key];
-               listItem.appendChild(div);
+            const div = document.createElement("div");
+            div.innerHTML = key === 'difficulty' ? ['V.Easy', 'Easy', 'Medium', 'Hard', 'V.Hard'][data[id][key] - 1] : data[id][key];
+            listItem.appendChild(div);
             });
-            
-            // Use 'mouseenter' and ensure it's triggered by the parent only
-            listItem.addEventListener("mouseenter", function(event) {
-               if (event.currentTarget === event.target || event.target === listItem) {
-                  updateContent(data[id], id);
-               }
+            listItem.addEventListener("mouseenter", function() {
+               updateContent(data[id], id);
             });
-            
             listItem.addEventListener("click", function() {
                updateContent(data[id], id);
                if (window.innerWidth < 1050) {
                   navigation.style.display = "none";
                   contentDiv.style.display = "block";
-               }
+                  }
+               else {}
             });
          navigation.appendChild(listItem);
          });
@@ -62,26 +47,13 @@ document.addEventListener("DOMContentLoaded", function() {
          const contributorsText = 'Thank you to our contributors ' + uniqueContributors + '.';
          const aboutDiv = document.getElementById('about');
          aboutDiv.textContent = contributorsText;
-      })
-      .catch(error => {
-         console.error("Failed to fetch data:", error);
-         // Optionally, display an error message to the user
       });
 });
 
 function updateContent(item, id) {
    const xml_src = "https://raw.githubusercontent.com/mrdaveu/licksite/main/" + id + ".musicxml";
    const audio_src = "https://raw.githubusercontent.com/mrdaveu/licksite/main/" + id + ".m4a";
-   
-   // Reuse audio instances from the map
-   let audio;
-   if (audioMap.has(id)) {
-      audio = audioMap.get(id);
-   } else {
-      audio = new Audio(audio_src);
-      audioMap.set(id, audio);
-   }
-   
+   const audio = new Audio(audio_src);
    document.getElementById("osmdContainer").innerHTML = "";
    document.getElementById("title").innerHTML = "";
    const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdContainer");
@@ -102,12 +74,7 @@ function updateContent(item, id) {
             osmd.Zoom = 0.75;
          }
          osmd.render();
-      })
-      .catch(error => {
-         console.error("Failed to load or render music XML:", error);
-         // Optionally, notify the user
-      });
-      
+   });
    const titleElement = document.createElement("h2");
    const artistElement = document.createElement("div");
    const subheadElement = document.createElement("h3");
@@ -115,14 +82,11 @@ function updateContent(item, id) {
    titleElement.innerHTML = item["songName"] || "";
    artistElement.innerHTML = item["albumName"] ? `${item["artist"]} on "${item["albumName"]}"` : (item["artist"] || "");
    subheadElement.innerHTML = 
-      (item["tempo"] ? `Tempo: ${item["tempo"]}` : "") + 
-      (item["difficulty"] ? ` / ${['Easiest', 'Easier', 'Easy', 'Not That Easy', 'Not Easy At All'][item["difficulty"] - 1]}` : "") +
-      (item["chordProgression"] ? ` / Chords: ${item["chordProgression"]}` : "");
-   
-   const titleContainer = document.getElementById("title");
-   titleContainer.appendChild(titleElement);
-   titleContainer.appendChild(artistElement);
-   titleContainer.appendChild(subheadElement);
+   (item["tempo"] ? `Tempo: ${item["tempo"]}` : "") + (item["difficulty"] ? ` / ${['Easiest', 'Easier', 'Easy', 'Not That Easy', 'Not Easy At All'][item["difficulty"] - 1]}` : "")
+   + (item["chordProgression"] ? ` / Chords: ${item["chordProgression"]}` : "");
+   document.getElementById("title").appendChild(titleElement);
+   document.getElementById("title").appendChild(artistElement);
+   document.getElementById("title").appendChild(subheadElement);
 
    // Update description
    const description = document.getElementById("description");
@@ -134,37 +98,33 @@ function updateContent(item, id) {
    });
    nav.children[0].classList.add('active');
    nav.children[1].classList.add('active');
-
    function playAudio() {
-      if (activeAudio && activeAudio !== audio) {
-         activeAudio.pause();
+
+      if (activeAudio) {
+        activeAudio.pause();
       }
-      audio.play().catch(error => {
-         console.error("Audio playback failed:", error);
-         // Optionally, notify the user or handle the error
-      });
+      audio.play();
       activeAudio = audio;
    }
    playAudio();
-   
    const playButton = document.getElementById("playLick");
    playButton.addEventListener("click", () => {
-      playAudio();
+   playAudio();
    });
 }
+
 
 document.addEventListener('DOMContentLoaded', (event) => {
    // Initialize button and div elements
    const backButton = document.getElementById("backButton");
    const navigationDiv = document.getElementById("navigation");
    const contentDiv = document.getElementById("content");
-   
    function toggleVisibility() {
-      if (window.innerWidth < 1050 && contentDiv.style.display === "block") {
-         navigationDiv.style.display = "none";
+      if (window.innerWidth < 1050 && contentDiv.style.display == "block") {
+        navigationDiv.style.display = "none";
       } 
       else if (window.innerWidth < 1050) {
-         contentDiv.style.display = "none";
+        contentDiv.style.display = "none";
       }
       else {
          navigationDiv.style.display = "block";
@@ -184,7 +144,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
      navigationDiv.style.display = "block";
    });
  
-   // Class 'nav-item' switcher 
+   // class 'nav-item' switcher 
    const listItems = document.querySelectorAll(".data");
    listItems.forEach((item) => {
      item.addEventListener("click", function() {
@@ -192,19 +152,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
             navigationDiv.style.display = "none";
             contentDiv.style.display = "block";
          }
+         else {}
      });
    });
-   
-   // Event listener for pressing 'about'  
+   // event listener for pressing 'about'  
    const aboutButton = document.getElementById('aboutButton');
    const closeButton = document.getElementById('closeButton');
    const aboutPage = document.querySelector('.aboutPage');
    
    aboutButton.addEventListener('click', () => {
-       aboutPage.style.display = 'block'; 
+       aboutPage.style.display = 'block'; // Show the aboutPage
    });
    
    closeButton.addEventListener('click', () => {
-       aboutPage.style.display = 'none'; 
+       aboutPage.style.display = 'none'; // Hide the aboutPage
    });
-});
+ });
