@@ -25,23 +25,28 @@ document.addEventListener("DOMContentLoaded", function() {
             const listItem = document.createElement("li");
             listItem.className = "data";
             listItem.id = "data" + id;
+            
             ['songName', 'artist', 'difficulty', 'instrument', 'tempo'].forEach(key => {
-            const div = document.createElement("div");
-            div.innerHTML = key === 'difficulty' ? ['V.Easy', 'Easy', 'Medium', 'Hard', 'V.Hard'][data[id][key] - 1] : data[id][key];
-            listItem.appendChild(div);
+               const div = document.createElement("div");
+               div.innerHTML = key === 'difficulty' 
+                  ? ['V.Easy', 'Easy', 'Medium', 'Hard', 'V.Hard'][data[id][key] - 1] 
+                  : data[id][key];
+               listItem.appendChild(div);
             });
-            listItem.addEventListener("mouseover", function() {
+            
+            listItem.addEventListener("mouseenter", function() {
                updateContent(data[id], id);
             });
+            
             listItem.addEventListener("click", function() {
                updateContent(data[id], id);
                if (window.innerWidth < 1050) {
                   navigation.style.display = "none";
                   contentDiv.style.display = "block";
-                  }
-               else {}
+               }
             });
-         navigation.appendChild(listItem);
+            
+            navigation.appendChild(listItem);
          });
          const uniqueContributors = Array.from(new Set(Object.values(data).map(item => item.contributor))).join(', ');
          const contributorsText = 'Thank you to our contributors ' + uniqueContributors + '.';
@@ -88,7 +93,7 @@ function updateContent(item, id) {
    document.getElementById("title").appendChild(artistElement);
    document.getElementById("title").appendChild(subheadElement);
 
-   // Update description
+   // update description
    const description = document.getElementById("description");
    description.innerHTML = item["description"] ? `${item["description"]}` : "";
 
@@ -115,7 +120,7 @@ function updateContent(item, id) {
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
-   // Initialize button and div elements
+   // initialise button and div elements
    const backButton = document.getElementById("backButton");
    const navigationDiv = document.getElementById("navigation");
    const contentDiv = document.getElementById("content");
@@ -132,13 +137,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
    }
    
-    // Initial call to set visibility
     toggleVisibility();
-    
-    // Event listener for window resize
     window.addEventListener("resize", toggleVisibility);
     
-   // Event listener for back button
+   // listener for back button
    backButton.addEventListener("click", function() {
      contentDiv.style.display = "none";
      navigationDiv.style.display = "block";
@@ -161,10 +163,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
    const aboutPage = document.querySelector('.aboutPage');
    
    aboutButton.addEventListener('click', () => {
-       aboutPage.style.display = 'block'; // Show the aboutPage
+       aboutPage.style.display = 'block'; 
    });
    
    closeButton.addEventListener('click', () => {
-       aboutPage.style.display = 'none'; // Hide the aboutPage
+       aboutPage.style.display = 'none'; 
    });
  });
